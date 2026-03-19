@@ -1,4 +1,4 @@
-<img width="3929" height="3414" alt="diagram" src="https://github.com/user-attachments/assets/49546429-5753-4ab7-ab41-8fe46c710449" /># ShieldRide - Parametric Income Protection for Gig Workers
+# ShieldRide - Parametric Income Protection for Gig Workers
 >TEAM: Logicloop (KL UNIVERSITY)
 > GUIDEWIRE DEVTrails 2026 · Phase 1: Ideation & Foundation · Team Submission
 
