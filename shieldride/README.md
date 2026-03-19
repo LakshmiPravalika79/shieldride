@@ -240,6 +240,12 @@ A native app once the product-market fit is validated.
 The parametric model eliminates **moral hazard** (partners can't fake a weather event) and **claims friction** (the biggest reason gig workers never use insurance).
 
 ---
+Real-Time Fraud Detection System Architecture with MLOps Pipeline
+<img width="3929" height="3414" alt="diagram" src="https://github.com/user-attachments/assets/338df11a-e694-4665-bd86-2fd9b11471cb" />
+
+
+Simple Fraud Detection and Payment Flow
+<img width="2657" height="328" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/a94ad24a-9ff6-4f0b-addd-2db6797edf2a" />
 
 ## Team
 Guruvi Reddy Yasaswini
