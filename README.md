@@ -251,12 +251,72 @@ Simple Fraud Detection and Payment Flow
 
 <img width="2657" height="328" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/4c15d39d-a784-4229-8c3a-52367106fd02" />
 
+## Adversarial Defense & Anti-Spoofing Strategy
+
+> **The threat:** A 500-partner syndicate used GPS spoofing apps to fake locations inside a rain-triggered zone, coordinated via Telegram, draining a platform's liquidity pool through simultaneous false claims. Simple GPS verification is dead.
+
+---
+
+### How we tell a genuine stranded worker from a spoofer
+
+We don't rely on GPS coordinates alone. We cross-check four independent signals that spoofing apps **cannot fake simultaneously:**
+
+| Signal | What it catches |
+|--------|----------------|
+| `Location.isFromMockProvider()` Android API | Hard binary flag — returns TRUE when any fake GPS app is active |
+| Accelerometer + gyroscope (sensor fusion) | Person at home = flat, stationary sensor data. Real outdoor movement = micro-vibrations. GPS can be faked; IMU sensors cannot. |
+| Cell tower ID vs GPS coordinates | Spoofing moves the pin in software. It cannot move the physical tower the SIM is registered to. Mismatch = flagged. |
+| GPS signal quality (HDOP, satellite count) | Real outdoor lock: HDOP < 2.0, satellites ≥ 6. Spoofed GPS: HDOP = 0.0, satellites = 0. Suspiciously perfect = synthetic. |
+
+---
+
+### What catches a coordinated ring specifically
+
+Three signals that only appear when fraud is **organised at scale:**
+
+**1. Claim velocity surge** — In genuine triggers, claims arrive organically over 15–30 minutes. A Telegram-coordinated ring produces 400–500 claims within the same 60-second window. Our Isolation Forest model flags any zone where >50 claims arrive in a rolling 60-second window. Statistically impossible in real scenarios.
+
+**2. Device fingerprint clustering** — Fraud rings buy devices in bulk and use the same spoofing app. If 80+ partners in a single trigger batch share identical OS version + device model + app version signatures, that cluster is held. Honest workers have organically varied, personal device profiles.
+
+**3. Historical zone mismatch** — Every partner has a 90-day delivery heatmap from their completed orders. A partner whose entire history is in Banjara Hills claiming a trigger in Kukatpally — a zone they have never worked in — is flagged. People don't travel to unfamiliar zones during active weather events.
+
+---
+
+### Composite risk score — not a binary block
+
+Every partner gets a **0–100 risk score** before payout fires. Multiple signals must corroborate before a payout is blocked. A single flag never stops payment.
+
+| Score | Action |
+|-------|--------|
+| **0–30** | Auto-approve. Payout in 2 hours as normal. |
+| **31–60** | Silent 4-hour soft hold. System re-verifies passively. If location stabilises — auto-approved. Partner sees: *"Payout processing, arriving within 4 hours."* No accusation. No forms. |
+| **61–100** | Blocked. Full evidence packet auto-generated. Human review within 24 hours. False positives receive manual payout + ₹50 apology credit. |
+
+---
+
+### Why honest workers are safe
+
+A genuinely stranded partner produces: mock location OFF, sensor data consistent with outdoor sheltering, cell tower matching their GPS zone, organic claim timing, unique device fingerprint, and a location inside their historical work zone. Their score is typically **0–15.**
+
+GPS drift caused by heavy rain interference (±100–300m) is handled with a **±200m zone boundary buffer.** A partner at a zone edge in a storm is never penalised for rain-induced GPS imprecision.
+
+---
+
+### Architecture changes (minimal)
+
+Three additions to the existing stack — nothing rebuilt:
+- **PWA layer:** Collect `DeviceMotionEvent` (accelerometer/gyroscope) + mock location flag + GPS quality metadata alongside every location ping
+- **Trigger Engine:** Add risk scoring module (runs <200ms per partner using pre-computed zone history)
+- **Redis:** Split into `payout.immediate` (0–30), `payout.review` (31–60, re-evaluated at T+4h), and `payout.blocked` (61–100) queues
+  
+---
+
 ## Team
-Guruvi Reddy Yasaswini
-Rachapudi Sai Sree
-Ramisetti Purna Chandrika
-Maddineni Pravallika
-Ega Lakshmi Pravalika - Team Lead
+- Guruvi Reddy Yasaswini
+- Rachapudi Sai Sree
+- Ramisetti Purna Chandrika
+- Maddineni Pravallika
+- Ega Lakshmi Pravalika - Team Lead
 ---
 
 ## Repository Structure (Phase 1)
