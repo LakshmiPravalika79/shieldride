@@ -244,7 +244,7 @@ The parametric model eliminates **moral hazard** (partners can't fake a weather 
 
 ## Team
 Guruvi Reddy Yasaswini
-Sai Sree Rachapudi
+Rachapudi Sai Sree
 Ramisetti Purna Chandrika
 Maddineni Pravallika
 Ega Lakshmi Pravalika - Team Lead
