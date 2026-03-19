@@ -1,4 +1,4 @@
-# ShieldRide - Parametric Income Protection for Gig Workers
+<img width="3929" height="3414" alt="diagram" src="https://github.com/user-attachments/assets/49546429-5753-4ab7-ab41-8fe46c710449" /># ShieldRide - Parametric Income Protection for Gig Workers
 >TEAM: Logicloop (KL UNIVERSITY)
 > GUIDEWIRE DEVTrails 2026 · Phase 1: Ideation & Foundation · Team Submission
 
@@ -241,6 +241,15 @@ A native app once the product-market fit is validated.
 The parametric model eliminates **moral hazard** (partners can't fake a weather event) and **claims friction** (the biggest reason gig workers never use insurance).
 
 ---
+
+Real-Time Fraud Detection System Architecture with MLOps Pipeline
+
+<img width="3929" height="3414" alt="diagram" src="https://github.com/user-attachments/assets/b5f5da6b-3f98-4d78-ae7f-4c7e1a10bedf" />
+
+
+Simple Fraud Detection and Payment Flow
+
+<img width="2657" height="328" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/4c15d39d-a784-4229-8c3a-52367106fd02" />
 
 ## Team
 Guruvi Reddy Yasaswini
